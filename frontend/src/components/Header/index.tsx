@@ -9,7 +9,7 @@ type Props = {
 export default function Header ( {title}: Props ){
 
     return(
-        <AppBar>
+        <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6" component="div">
                     {title}
