@@ -21,7 +21,7 @@ import * as categoriaService from "../../../services/categoria-service";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import {Delete, Edit} from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 
 export default function ListarCategorias() {
   const [categorias, setCategorias] = useState<CategoriaDTO[]>([]);
@@ -50,41 +50,35 @@ export default function ListarCategorias() {
   }, []);
 
   const handleDelete = async (id: number) => {
-
-    if(window.confirm(`Tem certeza que deseja excluir a categoria ID: ${id}`))
-
+    if (window.confirm(`Tem certeza que deseja excluir a categoria ID: ${id}`))
       try {
-          await categoriaService.deleteById(id);
-          setCategorias(categorias.filter( (categoria) => categoria.id !== id ))
+        await categoriaService.deleteById(id);
+        setCategorias(categorias.filter((categoria) => categoria.id !== id));
         setSuccess("Categoria excluída com sucesso!");
-        setTimeout(() => setSuccess(null),3000 )        
+        setTimeout(() => setSuccess(null), 3000);
       } catch (error: unknown) {
-        let msg = "Erro ao excluir Categoria"
-        if(axios.isAxiosError(error) && error.response){
-          msg = error.response.data.error || msg
+        let msg = "Erro ao excluir Categoria";
+        if (axios.isAxiosError(error) && error.response) {
+          msg = error.response.data.error || msg;
         }
-        setSuccess(null)
-        setError(msg)
-         setTimeout(() => setError(null),4000 )
+        setSuccess(null);
+        setError(msg);
+        setTimeout(() => setError(null), 4000);
       }
-    
-  }
-
-
+  };
 
   return (
     <Box sx={{ p: 4 }}>
-
-    {success && (
-      <Alert severity="success" sx={{mb: 2}}>
-        {success}
-      </Alert>
-    )}
-    {error && (
-      <Alert severity="error" sx={{mb: 2}}>
-        {error}
-      </Alert>
-    )}
+      {success && (
+        <Alert severity="success" sx={{ mb: 2 }}>
+          {success}
+        </Alert>
+      )}
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
       <Typography variant="h4" component="h1" gutterBottom>
         Listagem de Categorias
       </Typography>
@@ -106,36 +100,35 @@ export default function ListarCategorias() {
                     <TableCell>Ações</TableCell>
                   </TableRow>
                 </TableHead>
-              <TableBody>
-                {categorias.map( (categoria ) => (
-                  <TableRow key={categoria.id}>
-                    <TableCell>{categoria.id}</TableCell>
-                    <TableCell>{categoria.nome}</TableCell>
-                    <TableCell>
-                      <IconButton 
-                        aria-label="editar"
-                        component={Link}
-                        to={`/categorias/${categoria.id}/editar`}
-                      >
-                         <Edit />
-                      </IconButton>
-                      <IconButton
-                        aria-label="excluir"
-                        onClick={() => handleDelete(categoria.id)}
-                        sx={{ml:1}}
-                      >
-                        <Delete />
-                      </IconButton>
-
-                    </TableCell>
-                  </TableRow>
-                ) )}
-
-              </TableBody>
+                <TableBody>
+                  {categorias.map((categoria) => (
+                    <TableRow key={categoria.id}>
+                      <TableCell>{categoria.id}</TableCell>
+                      <TableCell>{categoria.nome}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          aria-label="editar"
+                          component={Link}
+                          to={`/categorias/${categoria.id}/editar`}
+                        >
+                          <Edit />
+                        </IconButton>
+                        <IconButton
+                          aria-label="excluir"
+                          onClick={() => handleDelete(categoria.id)}
+                          sx={{ ml: 1 }}
+                        >
+                          <Delete />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
               </Table>
             </TableContainer>
           </Typography>
-        ))}
+        )
+      )}
     </Box>
   );
 }
