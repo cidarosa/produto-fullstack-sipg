@@ -1,6 +1,8 @@
-export type CategoriaDTO = {
+export type CategoriaInputDTO = {
+  nome: string;
+};
 
-    id: number;
-    nome: string;
-    
-}
+export type CategoriaDTO = {
+  id: number;
+  nome: string;
+};
