@@ -12,7 +12,7 @@ export default function AppRouter() {
       <Route path="/produtos" element={<ListarProdutos />} />
       <Route path="/categorias/novo" element={<FormularioNovaCategoria />} />
 
-      <Route path="/categorias/:categoriaId/editar" element={<EditarCategoria />}  />
+      <Route path="/categorias/editar/:categoriaId" element={<EditarCategoria />}  />
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
